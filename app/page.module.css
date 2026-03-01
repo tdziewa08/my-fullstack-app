@@ -4,10 +4,56 @@
   align-items: center;
   justify-content: center;
   border: 1px solid blue;
+  width: 80%;
 }
 
 .main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   background-color: orange;
+  padding: 1em;
+}
+
+.attract {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gameOfDay {
+  
+}
+
+.postsContainer {
+  width: 100%;
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1em;
+}
+
+.post {
+  border: 1px solid red;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-block: 2em;
+}
+
+#postImg {
+  width: 100%;
+  height: auto;
+}
+
+.postImgContainer {
+  width: 50%;
+  position: relative;
+}
+
+.postDetails {
+  width: 50%;
 }
 
 .sign-in {

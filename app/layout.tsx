@@ -46,12 +46,17 @@ export default function RootLayout({
 
   REACT:
     UI - different for each level of user
-    Welcome Page - maybe the same as the blog page
+    Welcome Page - encourage signing up, show thumbnails for blogs posts
+    use new API for getting random game images for the user to post about i guess???
+    **users post on GAME OF THE DAY??? (single image chosen every 24 hours???)
+    not really blogs but fileds of a form for a user to rate game aspects on a scale (gameplay, music, replayability, graphics, maybe a little comment)
     Sign In/Up Page - render form
     Blogs Page - render blogs and announcements
+
   
   NEXT:
     use Next links to go between pages
+    each blog post has a dynamic parameter [blod_id] or similar
     use Next forms to allow new posts and announcements
 
 */
