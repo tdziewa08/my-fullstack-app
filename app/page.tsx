@@ -2,6 +2,8 @@ import styles from "./page.module.css";
 import GameOfDay from "@/components/dailyGame";
 import Link from 'next/link'
 import Image from 'next/image'
+import { createClient } from '@/utils/supabase/client'
+
 
 
 export type Game = {

@@ -1,25 +1,26 @@
 import styles from '@/app/page.module.css'
 import Form from 'next/form'
+import { handleSign } from '@/app/auth/actions'
 
 export default function SignUpPage() {
     return (
         <div className={styles.page}>
-            <form className={styles.signupPage}>
+            <Form action={handleSign} className={styles.signupPage}>
                 <h1>Sign Up</h1>
                 <label>
                     <div>
                         <p>Email Address</p>
-                        <input type='text' placeholder='me@abc.com'/>
+                        <input type='email' name='email' placeholder='me@abc.com' required/>
                     </div>
                 </label>
                 <label>
                     <div>
                         <p>Password</p>
-                        <input type='text' placeholder='123'/>
+                        <input type='password' name='password' placeholder='Enter password' required minLength={6}/>
                     </div>
                 </label>
-                <button>Sign Up</button>
-            </form>
+                <button type="submit">Sign Up</button>
+            </Form>
         </div>
     )
 }

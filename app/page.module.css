@@ -149,6 +149,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  background-color: rgb(255, 246, 234);
   padding: 1em;
   gap: 1em;
 }

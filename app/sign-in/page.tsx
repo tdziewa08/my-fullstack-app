@@ -1,25 +1,28 @@
+'use client'
+
 import styles from '@/app/page.module.css'
 import Form from 'next/form'
+import { handleSign } from '@/app/auth/actions'
 
-export default function SignInPage() {
+export default function SignUpPage() {
     return (
         <div className={styles.page}>
-            <form className={styles.signupPage}>
-                <h1>Sign In</h1>
+            <Form action={handleSign} className={styles.signupPage}>
+                <h1>Sign Up</h1>
                 <label>
                     <div>
                         <p>Email Address</p>
-                        <input type='text' placeholder='me@abc.com'/>
+                        <input type='text' name='email' placeholder='me@abc.com'/>
                     </div>
                 </label>
                 <label>
                     <div>
                         <p>Password</p>
-                        <input type='text' placeholder='123'/>
+                        <input type='text' name='password' placeholder='123'/>
                     </div>
                 </label>
-                <button>Sign In</button>
-            </form>
+                <button>Sign Up</button>
+            </Form>
         </div>
     )
 }
