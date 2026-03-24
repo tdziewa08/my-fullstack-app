@@ -1,42 +1,25 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Link from 'next/link';
-import { getUser, handleSignout } from '@/app/auth/actions'
+import Navigation, { NavigationFallback } from '@/components/Navigation'
+import { Suspense } from 'react'
 
 export const metadata: Metadata = {
   title: "My App",
   description: "My custom application",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
 
-  const user = await getUser()
-  console.log('USER: ',user)
-
   return (
     <html lang="en">
       <body>
-        <nav className="testy">
-          <Link href="/">Home</Link>
-          {user === null
-           ? 
-           <>
-            <Link href="/sign-in">Sign In</Link>
-            <Link href="/sign-up">Sign Up</Link>
-           </>
-           :
-           <>
-            <span>Welcome {user.user_metadata.display_name}</span>
-            <form action={handleSignout}>
-              <button type="submit">Sign Out</button>
-            </form>
-           </>
-          }
-        </nav>
+        <Suspense fallback={<NavigationFallback />}>
+          <Navigation />
+        </Suspense>
         {children}
       </body>
     </html>

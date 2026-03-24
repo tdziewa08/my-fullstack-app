@@ -13,6 +13,14 @@ type PostProps = {
 export default async function Post({ post }: PostProps) {
 
     const user = await getUser()
+    const postTime = new Date(post.created_at).toLocaleString('en-US', {
+        month: 'long',     // March
+        day: 'numeric',    // 24
+        year: 'numeric',   // 2026
+        hour: 'numeric',   // 2 PM
+        minute: '2-digit', // 30
+        hour12: true       // AM/PM format
+    })
 
     return (
         <div className={styles.post}>
@@ -25,18 +33,10 @@ export default async function Post({ post }: PostProps) {
                 <p>Music: {post.music_rating}</p>
                 <p>Replayability: {post.replay_rating}</p>
             </div>
-            <p>Written By: {post.user_display_name}</p>
-            {/* ADD USER ROLE FIELD HERE */}
-            {user ? user.id === post.user_id && <button>DELETE</button> : null}
+            <p>Written By: {post.user_display_name} ({post.user_role})</p>
+            <p>{postTime}</p>
+            {user?.id === post.user_id && <button>DELETE</button>}
             {/* THIS LOGIC IS WORKING, JUST NEED TO ADD FUNCTIONALITY TO THE BUTTON */}
         </div>
     )
 }
-
-        // <li key={post.id}>
-        //     Written By: {post.user_display_name}
-        //     - Gameplay: {post.gameplay_rating}/10
-        //     - Story: {post.story_rating}/10
-        //     - Music: {post.music_rating}/10
-        //     - Replay: {post.replay_rating}/10
-        // </li>

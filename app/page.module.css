@@ -101,6 +101,17 @@
   opacity: .9;
 }
 
+/* BLOG PAGE TEST */
+
+/* .blog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: orange;
+  padding: 1em;
+} */
+
 .postsContainer {
   width: 100%;
   display: grid;

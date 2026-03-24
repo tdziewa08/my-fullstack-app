@@ -21,7 +21,8 @@ export async function handleSignup(formData: FormData) {
             password: password,
             options: {
                 data: {
-                    display_name: name
+                    display_name: name,
+                    app_role: 'User'
                 }
             }
         }
@@ -71,6 +72,7 @@ export async function writePost(formData: FormData) {
             {
                 user_id: user.id,
                 user_display_name: user.user_metadata.display_name,
+                user_role: user.user_metadata.app_role,
                 gameplay_rating: Number(formData.get('gameplay')),
                 story_rating: Number(formData.get('story')),
                 music_rating: Number(formData.get('music')),
