@@ -134,7 +134,10 @@
 
 .postImgContainer {
   width: 40%;
-  position: relative;
+}
+
+.postImgContainer > img {
+  width: 100%;
 }
 
 .postDetails {

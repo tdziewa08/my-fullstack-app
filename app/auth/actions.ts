@@ -92,17 +92,46 @@ export async function writePost(formData: FormData) {
 
 export async function deletePost(postId: number) {
     const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    
+    if (!user) {
+        console.error('Unauthorized: No user')
+        return
+    }
+    
+    // Get the post to check ownership
+    const { data: post } = await supabase
+        .from('test_post_table')
+        .select('user_id')
+        .eq('id', postId)
+        .single()
+    
+    // Get current user's profile to check admin status
+    const { data: profile } = await supabase
+        .from('profiles')
+        .select('app_role')
+        .eq('id', user.id)
+        .single()
+    
+    const isOwner = post?.user_id === user.id
+    const isAdmin = profile?.app_role === 'Admin'
+    
+    if (!isOwner && !isAdmin) {
+        console.error('Unauthorized: Not owner or admin')
+        return
+    }
     
     const { error } = await supabase
         .from('test_post_table')
         .delete()
-        .eq('id', postId) // assuming your posts table has an 'id' column
+        .eq('id', postId)
     
     if (error) {
         console.error('Error deleting post:', error)
         return
     }
     
+    console.log('Post deleted successfully by:', isAdmin ? 'Admin' : 'Owner')
     revalidatePath('/blogs')
 }
 

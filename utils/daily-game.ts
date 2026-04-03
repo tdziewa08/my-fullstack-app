@@ -13,17 +13,19 @@ export type Game = {
 
 export async function getDailyGame(): Promise<Game> {
     'use cache'
-
+    console.log('🎯 getDailyGame() - PROD TEST:', new Date().toISOString())
+    
     const token = await getToken()
     return await getGamesTest(token)
 }
 
 export async function getToken() {
+  console.log('🔑 getToken() - PROD TEST:', new Date().toISOString())
   const response = await fetch(
     'https://id.twitch.tv/oauth2/token?client_id=tw9b38rfdf3f49bwth8vajvp7ugzta&client_secret=4ilxc13p52i3mmhgcfcf2d1o4v98w0&grant_type=client_credentials', 
     { 
       method: 'POST',
-      // next: { revalidate: 86400 } // Cache the token for 24 hours
+      next: { revalidate: 86400 } // Cache the token for 24 hours
     }
   )
   const data = await response.json()
@@ -33,19 +35,46 @@ export async function getToken() {
 }
 
 export async function getGamesTest(token: string) {
+  console.log('🎮 getGamesTest() - PROD TEST:', new Date().toISOString())
   const response = await fetch(
-  "https://api.igdb.com/v4/games",
-  { method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Client-ID': 'tw9b38rfdf3f49bwth8vajvp7ugzta',
-      'Authorization': `Bearer ${token}`,
-    },
-    body: "fields cover.image_id, first_release_date, genres.name, involved_companies.company ,name ,summary; where cover != null & first_release_date != null & involved_companies != null & genres != null;",
-    // next: { revalidate: 86400 } // Cache the games for 24 hours
-    //maybe limit to 1 and have random number to offset
-  });
+    "https://api.igdb.com/v4/games",
+    { 
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Client-ID': 'tw9b38rfdf3f49bwth8vajvp7ugzta',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: `
+        fields cover.image_id, first_release_date, genres.name, involved_companies.company, name, summary, total_rating, follows;
+        where 
+          cover != null & 
+          first_release_date != null & 
+          involved_companies != null & 
+          genres != null &
+          total_rating >= 75;
+        limit 50;
+      `,
+      next: { revalidate: 86400 } // Cache the games for 24 hours
+    }
+  );
   const data = await response.json();
+  
+  // Debug: Check API response
+  console.log('IGDB Response status:', response.status);
+  //console.log('IGDB Response data:', data);
+  console.log('Number of games returned:', data.length);
+  
+  // Check if API returned an error instead of data
+  if (data.error || !Array.isArray(data)) {
+    console.error('IGDB API Error:', data);
+    throw new Error('IGDB API returned an error');
+  }
+  
+  if (data.length === 0) {
+    console.warn('No games found with current filters');
+    throw new Error('No games found - try different filters');
+  }
   
   // Use deterministic daily selection
   const today = new Date();

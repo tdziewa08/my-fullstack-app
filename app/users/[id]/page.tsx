@@ -3,28 +3,51 @@ import { Suspense } from 'react'
 import { createClient } from '@/utils/supabase/server'
 import { getUser } from '@/app/auth/actions'
 import Post from "@/components/post"
-//import type Post from '@/app/blogs/page'
+import type { Post as PostType, Profile as ProfileType} from '@/app/blogs/page'
 
+// Add the PostWithProfile type
+type PostWithProfile = PostType & {
+    profiles: {
+        id: string
+        display_name: string | null
+        app_role: string | null
+    } | null
+}
 
-type Props = {
+type UserDetailProps = {
     params: Promise<{ id: string }>
 }
 
 async function getUserPosts(userId: string) {
     const user = await getUser()
     const supabase = await createClient()
-    const { data, error } = await supabase
+    
+    // ✅ Filter posts by the specific user
+    const { data: postsWithProfiles, error } = await supabase
         .from('test_post_table')
-        .select('*')
-        .eq('user_id', userId)
-
+        .select(`*, profiles(id, display_name, app_role)`)
+        .eq('user_id', userId)  // ✅ Added filter for specific user
+    
+    // Get current user's profile for admin check
+    const { data: currentUserProfile } = user ? await supabase
+        .from('profiles')
+        .select('app_role')
+        .eq('id', user.id)
+        .single() : { data: null }
+    
     if (error) {
-        console.error('Error fetching user posts:', error)
-        return null
+        console.error('Error fetching posts:', error)
+        return <div>Error loading posts</div>
     }
 
-    return data?.map(post => (
-        <Post key={post.id} post={post} user={user} />
+    // ✅ Fixed variable names and types
+    return postsWithProfiles?.map(post => (
+        <Post 
+            key={post.id} 
+            post={post as PostWithProfile} 
+            user={user} 
+            currentUserProfile={currentUserProfile}
+        />
     ))
 }
 
@@ -50,8 +73,7 @@ function UserDetailFallback() {
     )
 }
 
-export default async function UserDetail({ params }: Props) {
-
+export default async function UserDetail({ params }: UserDetailProps) {
     const { id } = await params
     const [userPosts, userData] = await Promise.all([
         getUserPosts(id),
@@ -75,19 +97,3 @@ export default async function UserDetail({ params }: Props) {
         </Suspense>
     )
 }
-
-
-// const { data, error } = await supabase
-//         .from('test_post_table')
-//         .insert(
-//             {
-//                 user_id: user.id,
-//                 user_display_name: user.user_metadata.display_name,
-//                 user_role: user.user_metadata.app_role,
-//                 gameplay_rating: Number(formData.get('gameplay')),
-//                 story_rating: Number(formData.get('story')),
-//                 music_rating: Number(formData.get('music')),
-//                 replay_rating: Number(formData.get('replay')),
-//                 post_image: formData.get('post_image') as string
-//             }
-//         )

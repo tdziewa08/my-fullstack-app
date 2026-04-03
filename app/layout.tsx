@@ -107,3 +107,23 @@ export default function RootLayout({
 
     5 pages total
 */
+
+
+/* Final Stretch Pseudo Code 
+
+    show delete option for ANY post when Admin is signed in****
+    Have users automatically signed out when leaving the app
+    Fine tune API call to not grab multiple tokens AND fetch more relevant games
+    Use profiles table instead of authenticated users table where possible**** I THINK I DID IT
+    protect routes from being accessed through address bar
+    rename tables, env variables
+    style post component
+    style sign-in/up pages
+    style game of the day component
+    style users/[id] page
+    add fonts
+    add media queries
+    clean up and LAUNCH
+
+
+*/
