@@ -1,5 +1,6 @@
 import styles from "../app/page.module.css";
-import type { Post as PostType, Profile as ProfileType } from '@/app/blogs/page'
+import Link from 'next/link'
+import type { Post as PostType } from '@/app/blogs/page'
 import type { User } from '@supabase/supabase-js'
 import { deletePost } from '@/app/auth/actions'
 
@@ -31,7 +32,10 @@ export default function Post({ post, user, currentUserProfile }: PostProps) {
             </div>
             <div className={styles.postDetails}>
                 <div className={styles.userDetails}>
-                    <p>Written By: {post.profiles?.display_name}({post.profiles?.app_role})</p>
+                    <p>
+                        Written By: <Link href={`/users/${post.user_id}`}>{post.profiles?.display_name}</Link>
+                        ({post.profiles?.app_role})
+                    </p>
                     <p>{postTime}</p>
                 </div>
                 <p>Gameplay: {post.gameplay_rating}/10</p>

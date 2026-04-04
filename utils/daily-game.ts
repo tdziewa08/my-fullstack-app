@@ -52,7 +52,7 @@ export async function getGamesTest(token: string) {
           first_release_date != null & 
           involved_companies != null & 
           genres != null &
-          total_rating >= 75;
+          total_rating >= 80;
         limit 50;
       `,
       next: { revalidate: 86400 } // Cache the games for 24 hours
@@ -86,7 +86,7 @@ export async function getGamesTest(token: string) {
   const gameImage = await getGameImage(imageId);
   const gameCompany = await getGameCompany(token, selectedGame.involved_companies[0])
 
-  const gameGenres = selectedGame.genres.map((item: {id: number, name: string}) => item.name)
+  const gameGenres = selectedGame.genres.slice(0, 2).map((item: {id: number, name: string}) => item.name)
   //console.log('game genres,', gameGenres)
 
   return {...selectedGame, image: gameImage, company: gameCompany, genres: gameGenres};

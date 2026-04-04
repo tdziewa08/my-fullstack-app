@@ -17,7 +17,7 @@ export default function DailyGame({ game, user }: DailyGameProps) {
     return (
           <section className={styles.dailyGameCard}>
             <div className={styles.gameImgContainer}>
-                <Image src={game.image} alt="placeholder-img" height={350} width={400} />
+                <img src={game.image} alt={game.name} />
             </div>
             <div className={styles.dailyGameDetails}>
                 <h2>{game.name}</h2>
@@ -29,7 +29,7 @@ export default function DailyGame({ game, user }: DailyGameProps) {
                     </div>
                 </div>
                 <p className={styles.dailyGameSummary}>{game.summary}</p>
-                {user && <Link href="/new-blog" >Write Post</Link>}
+                {user && <Link href="/new-blog">Write Post</Link>}
             </div>
         </section>
     )

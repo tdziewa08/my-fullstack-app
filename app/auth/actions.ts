@@ -65,7 +65,7 @@ export async function writePost(formData: FormData) {
     if(!user)
     {
         console.error('Not an authenticated user')
-        redirect('/sign_up')
+        redirect('/sign-in')
     }
     const { data, error } = await supabase
         .from('test_post_table')

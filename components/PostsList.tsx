@@ -1,8 +1,7 @@
 import styles from '@/app/page.module.css'
-import Post from "./post"
+import Post from "./Post"
 import { createClient } from '@/utils/supabase/server'
 import { getUser } from '@/app/auth/actions'
-import type { Post as PostType, Profile as ProfileType} from '@/app/blogs/page'
 
 export default async function PostsList() {
     const supabase = await createClient()
@@ -40,7 +39,7 @@ export default async function PostsList() {
                     user={user} 
                     currentUserProfile={currentUserProfile}
                 />
-            ))}
+            )).reverse()}
         </>
     )
 }

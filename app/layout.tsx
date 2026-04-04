@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+// @ts-ignore
 import "./globals.css";
 import Navigation, { NavigationFallback } from '@/components/Navigation'
 import { Suspense } from 'react'
@@ -112,17 +113,19 @@ export default function RootLayout({
 /* Final Stretch Pseudo Code 
 
     show delete option for ANY post when Admin is signed in****
-    Have users automatically signed out when leaving the app
-    Fine tune API call to not grab multiple tokens AND fetch more relevant games
+    Have users automatically signed out when leaving the app **** (NOT actually a problem)
+    Fine tune API call to not grab multiple tokens AND fetch more relevant games****
     Use profiles table instead of authenticated users table where possible**** I THINK I DID IT
-    protect routes from being accessed through address bar
+    protect routes from being accessed through address bar****
     rename tables, env variables
+
     style post component
     style sign-in/up pages
     style game of the day component
     style users/[id] page
     add fonts
     add media queries
+
     clean up and LAUNCH
 
 

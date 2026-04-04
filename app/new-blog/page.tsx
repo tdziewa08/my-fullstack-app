@@ -1,10 +1,11 @@
 import styles from '@/app/page.module.css'
-import { writePost } from '@/app/auth/actions'
 import Form from 'next/form'
 import Image from 'next/image'
+import { redirect } from 'next/navigation'
+import { getUser } from '@/app/auth/actions'
 import { Game, getDailyGame } from '@/utils/daily-game'
+import { writePost } from '@/app/auth/actions'
 import { Suspense } from 'react'
-
 
 export default function NewBlogPage() {
     return (
@@ -17,6 +18,12 @@ export default function NewBlogPage() {
 }
 
 async function NewBlogContent() {
+
+    const user = await getUser()
+    if(!user)
+    {
+        redirect('/sign-in')
+    }
     const { image } = await getDailyGame()
 
     return (
@@ -27,25 +34,25 @@ async function NewBlogContent() {
                 <label>
                     <div>
                         <p>Gameplay</p>
-                        <input type='number' name='gameplay' placeholder='Enter score' required />
+                        <input type='number' name='gameplay' placeholder='Enter score' min='1' max='10' required />
                     </div>
                 </label>
                 <label>
                     <div>
                         <p>Story</p>
-                        <input type='number' name='story' placeholder='Enter score' required />
+                        <input type='number' name='story' placeholder='Enter score' min='1' max='10' required />
                     </div>
                 </label>
                 <label>
                     <div>
                         <p>Music</p>
-                        <input type='number' name='music' placeholder='Enter score' required />
+                        <input type='number' name='music' placeholder='Enter score' min='1' max='10' required />
                     </div>
                 </label>
                 <label>
                     <div>
-                        <p>Replay</p>
-                        <input type='number' name='replay' placeholder='Enter score' required />
+                        <p>Replayability</p>
+                        <input type='number' name='replay' placeholder='Enter score' min='1' max='10' required />
                     </div>
                 </label>
                 <input type="hidden" name="post_image" value={image} />
