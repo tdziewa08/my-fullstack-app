@@ -27,6 +27,7 @@ async function getUserPosts(userId: string) {
         .from('test_post_table')
         .select(`*, profiles(id, display_name, app_role)`)
         .eq('user_id', userId)  // ✅ Added filter for specific user
+        .order('created_at', { ascending: false }) // Most recent first
     
     // Get current user's profile for admin check
     const { data: currentUserProfile } = user ? await supabase
@@ -90,10 +91,18 @@ export default async function UserDetail({ params }: UserDetailProps) {
 
     return (
         <Suspense fallback={<UserDetailFallback />}>
-            <h1>USER: {userData?.display_name}</h1>
-            <h2>ROLE: {userData?.app_role}</h2>
-            <h3>MEMBER SINCE: {memberSince}</h3>
-            {userPosts}
+            <div className={styles.page}>
+                <main className={styles.main}>
+                    <section className={styles.userDetails}>
+                        <h1>{userData?.display_name}</h1>
+                        <h2>ROLE: {userData?.app_role}</h2>
+                        <h3>MEMBER SINCE: {memberSince}</h3>
+                    </section>
+                    <section className={styles.userPostsContainer}>
+                        {userPosts}
+                    </section>
+                </main>
+            </div>
         </Suspense>
     )
 }

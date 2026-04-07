@@ -28,9 +28,10 @@ export default function Post({ post, user, currentUserProfile }: PostProps) {
     return (
         <div className={styles.post}>
             <div className={styles.postImgContainer}>
-                <img src={post.post_image} alt="placeholder-img" />
+                <img src={post.post_image} alt={post.post_game_name} />
             </div>
             <div className={styles.postDetails}>
+                <p className={styles.postGameName}>{post.post_game_name}</p>
                 <div className={styles.userInfo}>
                     <p>
                         Written By: <Link href={`/users/${post.user_id}`}>{post.profiles?.display_name}</Link>

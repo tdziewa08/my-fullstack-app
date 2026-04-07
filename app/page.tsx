@@ -1,6 +1,5 @@
 import styles from "./page.module.css";
 import GameOfDay, { DailyGameFallback } from "@/components/dailyGame";
-import Link from 'next/link'
 import { getDailyGame } from '@/utils/daily-game'
 import { getUser } from '@/app/auth/actions'
 import { Suspense } from 'react'

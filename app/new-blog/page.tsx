@@ -24,7 +24,7 @@ async function NewBlogContent() {
     {
         redirect('/sign-in')
     }
-    const { image } = await getDailyGame()
+    const { image, name } = await getDailyGame()
 
     return (
         <div className={styles.page}>
@@ -55,6 +55,7 @@ async function NewBlogContent() {
                         <input type='number' name='replay' placeholder='Enter score' min='1' max='10' required />
                     </div>
                 </label>
+                <input type="hidden" name="post_game_name" value={name} />
                 <input type="hidden" name="post_image" value={image} />
                 <button type="submit">Post</button>
             </Form>

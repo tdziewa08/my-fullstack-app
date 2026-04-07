@@ -11,6 +11,7 @@ export default async function PostsList() {
     const { data: postsWithProfiles, error } = await supabase
         .from('test_post_table')
         .select(`*, profiles(id, display_name, app_role)`)
+        .order('created_at', { ascending: false }) // Most recent first
     
     // Get current user's profile for admin check
     const { data: currentUserProfile } = user ? await supabase
@@ -31,7 +32,6 @@ export default async function PostsList() {
 
     return (
         <>
-            {/* Fixed: Use postsWithProfiles and pass currentUserProfile */}
             {postsWithProfiles.map(post => (
                 <Post 
                     key={post.id} 
@@ -39,7 +39,7 @@ export default async function PostsList() {
                     user={user} 
                     currentUserProfile={currentUserProfile}
                 />
-            )).reverse()}
+            ))}
         </>
     )
 }

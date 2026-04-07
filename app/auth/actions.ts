@@ -72,15 +72,15 @@ export async function writePost(formData: FormData) {
         .insert(
             {
                 user_id: user.id,
-                user_display_name: user.user_metadata.display_name,
-                user_role: user.user_metadata.app_role,
                 gameplay_rating: Number(formData.get('gameplay')),
                 story_rating: Number(formData.get('story')),
                 music_rating: Number(formData.get('music')),
                 replay_rating: Number(formData.get('replay')),
-                post_image: formData.get('post_image') as string
+                post_image: formData.get('post_image') as string,
+                post_game_name: formData.get('post_game_name') as string
             }
         )
+
     if(error)
     {
         console.error(error)
