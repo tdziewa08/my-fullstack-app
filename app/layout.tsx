@@ -14,9 +14,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='' />
+        <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+      </head>
       <body>
         <Suspense fallback={<NavigationFallback />}>
           <Navigation />
@@ -117,15 +121,18 @@ export default function RootLayout({
     Fine tune API call to not grab multiple tokens AND fetch more relevant games****
     Use profiles table instead of authenticated users table where possible**** I THINK I DID IT
     protect routes from being accessed through address bar****
-    rename tables, env variables
+    
 
-    style post component
-    style sign-in/up pages
-    style game of the day component
-    style users/[id] page
+    style post component****
+    style sign-in/up pages****
+    style game of the day component****
+    style users/[id] page****
+
+
+    
     add fonts
     add media queries
-
+    rename tables, env variables
     clean up and LAUNCH
 
 

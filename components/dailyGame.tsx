@@ -37,22 +37,17 @@ export default function DailyGame({ game, user }: DailyGameProps) {
 
 export function DailyGameFallback() {
     return (
-        <section className={styles.dailyGameCard}>
-            <div className={styles.gameImgContainer}>
-                <div style={{height: 350, width: 400, backgroundColor: '#f0f0f0', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                    Loading game...
+        <section className={styles.dailyGameSkeleton}>
+            <div className={`${styles.skeleton} ${styles.dailyGameSkeletonImg}`}></div>
+            <div className={styles.dailyGameSkeletonDetails}>
+                <div className={`${styles.skeleton} ${styles.dailyGameSkeletonTitle}`}></div>
+                <div className={styles.dailyGameSkeletonMeta}>
+                    <div className={`${styles.skeleton} ${styles.dailyGameSkeletonDate}`}></div>
+                    <div className={`${styles.skeleton} ${styles.dailyGameSkeletonCompany}`}></div>
+                    <div className={`${styles.skeleton} ${styles.dailyGameSkeletonGenres}`}></div>
                 </div>
-            </div>
-            <div className={styles.dailyGameDetails}>
-                <h2>Loading Game of the Day...</h2>
-                <div>
-                    <span>Loading date...</span>
-                    <span>Loading company...</span>
-                    <div className={styles.genresContainer}>
-                        Loading genres...
-                    </div>
-                </div>
-                <p className={styles.dailyGameSummary}>Loading game description...</p>
+                <div className={`${styles.skeleton} ${styles.dailyGameSkeletonSummary}`}></div>
+                <div className={`${styles.skeleton} ${styles.dailyGameSkeletonLink}`}></div>
             </div>
         </section>
     )

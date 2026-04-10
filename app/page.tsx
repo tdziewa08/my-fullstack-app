@@ -8,10 +8,10 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <section className={styles.attract}>
-            <h1>Gamer Ranker Shitter</h1>
-            <span>Please Sign-Up to rank our game of the day...</span>
-        </section>
+            <h1>
+              Gamer Ranker Shitter
+              <span>Please Sign-Up to rank our game of the day!</span>
+            </h1>
         <Suspense fallback={<DailyGameFallback />}>
           <GameOfDayWrapper />
         </Suspense>

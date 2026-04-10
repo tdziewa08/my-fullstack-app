@@ -5,8 +5,20 @@
 }
 
 :root {
-  --background: #ffffff;
+  --background: #1f1f1f;
   --foreground: #171717;
+}
+
+/* Remove spinner arrows across all browsers */
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+  appearance: textfield; /* Standard */
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none; /* Webkit browsers */
+  margin: 0;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,10 +50,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: end;
-  gap: 2em;
   width: 80%;
-  border: 1px solid red;
+  border: 1px solid black;
+  background-color: rgba(245, 245, 245, 0.875);
   padding: .75em;
+  gap: 2em;
 }
 
 .navBar > a {
@@ -50,10 +63,14 @@ body {
   text-decoration: underline;
 }
 
+.navBar > a:hover {
+  opacity: .8;
+}
+
 .signoutBtn {
   border: 1px solid black;
   border-radius: .5rem;
-  background-color: whitesmoke;
+  background-color: rgb(245, 245, 245);
   font-size: 1rem;
   font-weight: bold;
   letter-spacing: .05em;

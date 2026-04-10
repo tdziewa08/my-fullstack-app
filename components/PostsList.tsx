@@ -11,7 +11,7 @@ export default async function PostsList() {
     const { data: postsWithProfiles, error } = await supabase
         .from('test_post_table')
         .select(`*, profiles(id, display_name, app_role)`)
-        .order('created_at', { ascending: false }) // Most recent first
+        .order('created_at', { ascending: false })
     
     // Get current user's profile for admin check
     const { data: currentUserProfile } = user ? await supabase
@@ -25,7 +25,6 @@ export default async function PostsList() {
         return <div>Error loading posts</div>
     }
 
-    // Fixed: Use postsWithProfiles, not test_post_table
     if (!postsWithProfiles || postsWithProfiles.length === 0) {
         return <div>No posts found</div>
     }
@@ -46,8 +45,22 @@ export default async function PostsList() {
 
 export function PostsListFallback() {
     return (
-        <div className={styles.page}>
-            <span>Loading posts...</span>
-        </div>
+        <>
+            {/* Generate 4 skeleton posts */}
+            {[1, 2, 3, 4].map((i) => (
+                <div key={i} className={styles.postSkeleton}>
+                    <div className={`${styles.skeleton} ${styles.postSkeletonImg}`}></div>
+                    <div className={styles.postSkeletonDetails}>
+                        <div className={`${styles.skeleton} ${styles.postSkeletonTitle}`}></div>
+                        <div className={`${styles.skeleton} ${styles.postSkeletonUser}`}></div>
+                        <div className={`${styles.skeleton} ${styles.postSkeletonDate}`}></div>
+                        <div className={`${styles.skeleton} ${styles.postSkeletonScore}`}></div>
+                        <div className={`${styles.skeleton} ${styles.postSkeletonScore}`}></div>
+                        <div className={`${styles.skeleton} ${styles.postSkeletonScore}`}></div>
+                        <div className={`${styles.skeleton} ${styles.postSkeletonScore}`}></div>
+                    </div>
+                </div>
+            ))}
+        </>
     )
 }
