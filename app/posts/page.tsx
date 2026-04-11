@@ -4,7 +4,7 @@ import { Suspense } from 'react'
 import type { Database } from '@/types/supabase'
 
 export type Profile = Database['public']['Tables']['profiles']['Row']
-export type Post = Database['public']['Tables']['test_post_table']['Row']
+export type Post = Database['public']['Tables']['posts_table']['Row']
 
 export default function PostsPage() {
     return (

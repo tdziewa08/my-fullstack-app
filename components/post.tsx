@@ -28,7 +28,7 @@ export default function Post({ post, user, currentUserProfile }: PostProps) {
     return (
         <div className={styles.post}>
             <div className={styles.postImgContainer}>
-                <img src={post.post_image} alt={post.post_game_name} />
+                <img src={post.post_image} alt={post.post_game_name || 'Game Image'} />
             </div>
             <div className={styles.postDetails}>
                 <p className={styles.postGameName}>{post.post_game_name}</p>

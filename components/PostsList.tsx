@@ -9,7 +9,7 @@ export default async function PostsList() {
     
     // Get posts with joined profile data
     const { data: postsWithProfiles, error } = await supabase
-        .from('test_post_table')
+        .from('posts_table')
         .select(`*, profiles(id, display_name, app_role)`)
         .order('created_at', { ascending: false })
     

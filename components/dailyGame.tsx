@@ -1,5 +1,4 @@
 import styles from "../app/page.module.css";
-import Image from 'next/image'
 import Link from 'next/link'
 import type { Game } from "@/utils/daily-game"
 import type { User } from '@supabase/supabase-js'

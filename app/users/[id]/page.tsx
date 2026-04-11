@@ -3,7 +3,7 @@ import { Suspense } from 'react'
 import { createClient } from '@/utils/supabase/server'
 import { getUser } from '@/app/auth/actions'
 import Post from "@/components/Post"
-import type { Post as PostType, Profile} from '@/app/posts/page'
+import type { Post as PostType} from '@/app/posts/page'
 
 type PostWithProfile = PostType & {
     profiles: {
@@ -23,7 +23,7 @@ async function UserPostsList({ userId }: { userId: string }) {
     const supabase = await createClient()
     
     const { data: postsWithProfiles, error } = await supabase
-        .from('test_post_table')
+        .from('posts_table')
         .select(`*, profiles(id, display_name, app_role)`)
         .eq('user_id', userId)
         .order('created_at', { ascending: false })
