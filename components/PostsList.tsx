@@ -1,5 +1,5 @@
 import styles from '@/app/page.module.css'
-import Post from "./Post"
+import Post from '@/components/Post'
 import { createClient } from '@/utils/supabase/server'
 import { getUser } from '@/app/auth/actions'
 

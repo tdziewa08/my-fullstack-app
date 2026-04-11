@@ -2,7 +2,7 @@ import styles from '@/app/page.module.css'
 import { Suspense } from 'react'
 import { createClient } from '@/utils/supabase/server'
 import { getUser } from '@/app/auth/actions'
-import Post from "@/components/Post"
+import Post from '@/components/Post'
 import type { Post as PostType} from '@/app/posts/page'
 
 type PostWithProfile = PostType & {
