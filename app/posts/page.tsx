@@ -1,5 +1,5 @@
 import styles from "../page.module.css";
-import PostsList, { PostsListFallback } from "../../components/PostsList"
+import PostsList, { PostsListFallback } from "@/components/PostsList"
 import { Suspense } from 'react'
 import type { Database } from '@/types/supabase'
 
